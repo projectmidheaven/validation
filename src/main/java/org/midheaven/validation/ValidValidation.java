@@ -17,7 +17,7 @@ final class ValidValidation implements Validation {
     ValidValidation(){}
     
     @Override
-    public Validation addReason(InvalidationReason reason) {
+    public Validation concatReason(InvalidationReason reason) {
         return new SingleReasonInvalidValidation(reason);
     }
     
@@ -27,7 +27,7 @@ final class ValidValidation implements Validation {
     }
     
     @Override
-    public Validation merge(Validation other) {
+    public Validation concat(Validation other) {
         return other;
     }
     

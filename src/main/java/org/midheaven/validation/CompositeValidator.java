@@ -28,7 +28,7 @@ public final class CompositeValidator<T> implements Validator<T> {
         var validation = Validation.valid();
 
         for (var validator : this.validators){
-            validation = validation.merge(validator.validate(candidate));
+            validation = validation.concat(validator.validate(candidate));
         }
         return validation;
     }

@@ -23,12 +23,12 @@ record MultipleReasonsInvalidValidation(Enumerable<InvalidationReason> reasons) 
     
     
     @Override
-    public Validation addReason(InvalidationReason reason) {
+    public Validation concatReason(InvalidationReason reason) {
         return new MultipleReasonsInvalidValidation(this, reason);
     }
     
     @Override
-    public Validation merge(Validation other) {
+    public Validation concat(Validation other) {
         return switch (other) {
             case ValidValidation ignored -> this;
             case SingleReasonInvalidValidation s -> new MultipleReasonsInvalidValidation(this, s.reason());

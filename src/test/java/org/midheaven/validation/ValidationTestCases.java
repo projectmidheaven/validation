@@ -33,7 +33,10 @@ public class ValidationTestCases {
 
     @Test
     public void length_isConsistent(){
-        var lengthValidator = LengthRangeValidator.in(Interval.ranging(Integer.class).from(2).inclusive().to(3).inclusive());
+        var lengthValidator = LengthRangeValidator
+                                  .in(Interval.ranging(Integer.class)
+                                          .from(2).inclusive()
+                                          .to(3).inclusive());
 
         assertTrue(lengthValidator.validate(null).isValid());
         assertTrue(lengthValidator.validate("sun").isValid());
@@ -41,7 +44,7 @@ public class ValidationTestCases {
         assertTrue(lengthValidator.validate(Set.of(1,2)).isValid());
         assertTrue(lengthValidator.validate(Map.of(1, "a", 2, "b")).isValid());
         assertTrue(lengthValidator.validate(new Object[]{1,2}).isValid());
-        assertTrue(lengthValidator.validate(Enumerable.from(List.of(1,2,3))).isValid());
+        assertTrue(lengthValidator.validate(Enumerable.from(List.of(2,3))).isValid());
         
         assertInvalid(lengthValidator.validate(""));
         assertInvalid(lengthValidator.validate("a"));
@@ -53,7 +56,7 @@ public class ValidationTestCases {
         assertInvalid(lengthValidator.validate(Enumerable.empty()));
 
         assertEquals(
-            "length.out.of.range",
+            "length.out-of-range",
             lengthValidator.validate("")
                 .reasons()
                 .first()

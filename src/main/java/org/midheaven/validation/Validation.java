@@ -10,13 +10,18 @@ public sealed interface Validation permits ValidValidation, SingleReasonInvalidV
         return ValidValidation.instance();
     }
     
+    static Validation invalid(InvalidationReason reason) {
+        return new SingleReasonInvalidValidation(reason);
+    }
+    
     /**
-     * Ads and {@link InvalidationReason} to the {@code Validation}.
+     * Concatenates the given {@link InvalidationReason} with the reasons in {@code this}
+     * and returns a new {@code Validation} containing all of them.
      *
      * @param reason the reason to add
      * @return and invalid validation containing the given reason
      */
-    Validation addReason(InvalidationReason reason);
+    Validation concatReason(InvalidationReason reason);
     
     /**
      * Return all invalidation reason in this {@code Validation}.
@@ -30,7 +35,7 @@ public sealed interface Validation permits ValidValidation, SingleReasonInvalidV
      * @param other the other {@code Validation} to merge
      * @return the merge {@code Validation}
      */
-    Validation merge(Validation other);
+    Validation concat(Validation other);
     
     /**
      * Applies a transformation to all reasons and returns a new {@code Validation} object containing the new reasons

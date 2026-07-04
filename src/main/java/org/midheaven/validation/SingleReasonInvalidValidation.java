@@ -8,7 +8,7 @@ import java.util.function.Function;
 @ValueClass
 record SingleReasonInvalidValidation(InvalidationReason reason) implements Validation {
     
-    public Validation addReason(InvalidationReason reason) {
+    public Validation concatReason(InvalidationReason reason) {
         return new MultipleReasonsInvalidValidation(this.reason, reason);
     }
     
@@ -16,11 +16,11 @@ record SingleReasonInvalidValidation(InvalidationReason reason) implements Valid
         return Enumerable.single(reason);
     }
     
-    public Validation merge(Validation other) {
+    public Validation concat(Validation other) {
         return switch (other) {
             case ValidValidation ignored -> this;
             case SingleReasonInvalidValidation s -> new MultipleReasonsInvalidValidation(this.reason, s.reason);
-            case MultipleReasonsInvalidValidation m -> m.addReason(this.reason);
+            case MultipleReasonsInvalidValidation m -> m.concatReason(this.reason);
         };
     }
     

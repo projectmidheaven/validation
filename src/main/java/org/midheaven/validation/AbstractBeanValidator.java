@@ -38,7 +38,7 @@ public abstract class AbstractBeanValidator<T> implements Validator<T> {
         var validation = Validation.valid();
 
         for (var validator : propertiesValidators){
-            validation = validation.merge(validator.validate(candidate));
+            validation = validation.concat(validator.validate(candidate));
         }
 
         return validation;
