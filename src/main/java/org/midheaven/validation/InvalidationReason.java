@@ -3,6 +3,7 @@ package org.midheaven.validation;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public interface InvalidationReason {
 
@@ -32,5 +33,14 @@ record SimpleInvalidationReason(InvalidationSeverity severity, String reasonKey,
     @Override
     public InvalidationReason prefix(String prefix) {
         return new SimpleInvalidationReason(severity, prefix + "." + reasonKey, parameters);
+    }
+    
+    @Override
+    public String toString() {
+        return "SimpleInvalidationReason["
+            + "reasonKey=" + reasonKey + ","
+            + "severity=" + severity + ","
+            + "parameters=[" + Arrays.stream(parameters).map(Object::toString).collect(Collectors.joining(",")) + "],"
+            ;
     }
 }
