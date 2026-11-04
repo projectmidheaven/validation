@@ -37,10 +37,10 @@ record SimpleInvalidationReason(InvalidationSeverity severity, String reasonKey,
     
     @Override
     public String toString() {
-        return "SimpleInvalidationReason["
+        return "SimpleInvalidationReason{"
             + "reasonKey=" + reasonKey + ","
             + "severity=" + severity + ","
             + "parameters=[" + Arrays.stream(parameters).map(Object::toString).collect(Collectors.joining(",")) + "],"
-            ;
+            + "}";
     }
 }
